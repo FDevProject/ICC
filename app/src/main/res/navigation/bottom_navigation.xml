@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.febrian.icc.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/globalFragment"
+        android:name="com.febrian.icc.ui.global.GlobalFragment"
+        android:label="global_fragment"
+        tools:layout="@layout/global_fragment" />
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.febrian.icc.ui.news.NewsFragment"
+        android:label="news_fragment"
+        tools:layout="@layout/news_fragment" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.febrian.icc.ui.info.InfoFragment"
+        android:label="info_fragment"
+        tools:layout="@layout/info_fragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.febrian.icc.ui.setting.SettingFragment"
+        android:label="SettingFragment" />
+
+</navigation>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "979471529138",
+    "project_id": "international-covid-center",
+    "storage_bucket": "international-covid-center.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:979471529138:android:973b1addbae4cf0e26c5ab",
+        "android_client_info": {
+          "package_name": "com.febrian.icc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "979471529138-678d61bam6f0btm7g207kus6a9qbh03j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQv81CPihDANXP4InvNU8Fp6199a988Z8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "979471529138-678d61bam6f0btm7g207kus6a9qbh03j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
