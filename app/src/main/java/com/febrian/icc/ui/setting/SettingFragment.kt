@@ -32,12 +32,11 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.info.setOnClickListener {
-          showInfo()
+            showInfo()
         }
-
     }
 
-    private fun showInfo(){
+    private fun showInfo() {
         val builder = AlertDialog.Builder(requireContext())
         val lView =
             LayoutInflater.from(requireContext()).inflate(R.layout.alert_dialog_about, null)
@@ -48,7 +47,7 @@ class SettingFragment : Fragment() {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
-    private fun setDarkMode(){
+    private fun setDarkMode() {
         val sharedPref =
             view?.context?.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         val value: String = sharedPref?.getString("KEY", "Follow By System").toString()
@@ -61,7 +60,7 @@ class SettingFragment : Fragment() {
 
         val adapter =
             view?.let {
-                ArrayAdapter<String>(
+                ArrayAdapter(
                     it.context,
                     android.R.layout.simple_spinner_dropdown_item,
                     list
@@ -108,7 +107,6 @@ class SettingFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
         setDarkMode()
     }
 

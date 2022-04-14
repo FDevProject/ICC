@@ -41,7 +41,7 @@ class ListInfoAdapter(private val listData: ArrayList<ListInfoData>) :
                 val image = layoutView.findViewById<ImageView>(R.id.image)
                 Glide.with(itemView.context).load(m.image).into(image)
                 title.text = m.key
-                description.text = m.description
+                description.text = m.description?.replace("\\n", "\n")
                 val btnClose = layoutView.findViewById<AppCompatButton>(R.id.btn_close)
                 btnClose.setOnClickListener {
                     dialog.dismiss()

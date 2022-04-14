@@ -1,7 +1,10 @@
 package com.febrian.icc.ui.news
 
 import android.content.Intent
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,10 +20,11 @@ import com.febrian.icc.data.source.remote.network.ApiResponse
 import com.febrian.icc.data.source.remote.response.news.NewsDataResponse
 import com.febrian.icc.databinding.ItemNewsBinding
 import com.febrian.icc.databinding.NewsFragmentBinding
+import com.febrian.icc.utils.ConnectionReceiver
 import com.febrian.icc.utils.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
-class NewsFragment : Fragment(), EventNews {
+class NewsFragment : Fragment(), EventNews, ConnectionReceiver.ReceiveListener {
 
     private var _binding: NewsFragmentBinding? = null
     private val binding get() = _binding!!
@@ -28,7 +32,7 @@ class NewsFragment : Fragment(), EventNews {
     private val listNews: ArrayList<NewsDataResponse> = ArrayList()
 
     private lateinit var viewModel: NewsViewModel
-
+    private lateinit var receiver: ConnectionReceiver
     private lateinit var adapter: NewsAdapter
 
     override fun onCreateView(
@@ -41,33 +45,45 @@ class NewsFragment : Fragment(), EventNews {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         adapter = NewsAdapter(listNews, requireActivity(), this)
         viewModel = ViewModelFactory.getInstance(requireContext()).create(NewsViewModel::class.java)
-        loading(viewModel)
-        observerNews(viewModel, "covid")
-        searchNews(viewModel)
+        receiver = ConnectionReceiver(requireContext(), this)
+
+        main()
+
+        binding.refreshLayout.setOnRefreshListener {
+            main()
+        }
 
         binding.btnBookmarks.setOnClickListener {
             val intent = Intent(requireContext(), BookmarkActivity::class.java)
             startActivity(intent)
         }
+
     }
 
-    private fun searchNews(viewModel: NewsViewModel) {
+    private fun main() {
+        loading()
+        observerNews("covid")
+        searchNews()
+    }
+
+    private fun searchNews() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                observerNews(viewModel, query.toString())
+                observerNews(query.toString())
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                observerNews(viewModel, newText.toString())
+                observerNews(newText.toString())
                 return true
             }
         })
     }
 
-    private fun observerNews(viewModel: NewsViewModel, query: String) {
+    private fun observerNews(query: String) {
 
         viewModel.getNews(query).observe(viewLifecycleOwner) {
             when (it) {
@@ -96,6 +112,7 @@ class NewsFragment : Fragment(), EventNews {
                     data[i].publishedAt?.split("T")?.get(0).toString()
                 )
                 listNews.add(newsData)
+
             }
             showRecycleView()
         }
@@ -108,12 +125,20 @@ class NewsFragment : Fragment(), EventNews {
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvNewsHeading.adapter = adapterHeading
 
+        for (i in 0 until listNews.size) {
+            viewModel.newsExist(listNews[i].title.toString()).observe(viewLifecycleOwner) {
+                if (it) {
+                    adapter.setBookmark(i)
+                }
+            }
+        }
+
         binding.rvNews.setHasFixedSize(true)
         binding.rvNews.layoutManager = LinearLayoutManager(requireContext())
         binding.rvNews.adapter = adapter
     }
 
-    private fun loading(viewModel: NewsViewModel) {
+    private fun loading() {
         viewModel.isLoading.observe(viewLifecycleOwner) {
             if (it) {
                 binding.shimmerFrameLayout.startShimmer()
@@ -123,6 +148,7 @@ class NewsFragment : Fragment(), EventNews {
                 binding.shimmerFrameLayout1.startShimmer()
                 binding.shimmerFrameLayout1.visibility = View.VISIBLE
                 binding.rvNewsHeading.visibility = View.GONE
+
             } else {
                 binding.shimmerFrameLayout.stopShimmer()
                 binding.shimmerFrameLayout.visibility = View.GONE
@@ -175,6 +201,11 @@ class NewsFragment : Fragment(), EventNews {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        main()
+    }
+
     override fun onShare(url: String) {
         val mimeType = "text/plain"
         ShareCompat.IntentBuilder
@@ -185,4 +216,18 @@ class NewsFragment : Fragment(), EventNews {
             .startChooser()
     }
 
+    override fun onStart() {
+        val intent = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        requireContext().registerReceiver(receiver, intent)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        requireContext().unregisterReceiver(receiver)
+        super.onStop()
+    }
+
+    override fun onNetworkChange() {
+        main()
+    }
 }

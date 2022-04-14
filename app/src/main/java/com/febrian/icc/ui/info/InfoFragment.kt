@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.febrian.icc.databinding.InfoFragmentBinding
+import com.febrian.icc.utils.ConnectionReceiver
 import com.febrian.icc.utils.Constant
 
 class InfoFragment : Fragment(), View.OnClickListener {

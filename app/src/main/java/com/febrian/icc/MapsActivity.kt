@@ -48,6 +48,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.mapGlobal) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        binding.back.setOnClickListener {
+            finish()
+        }
+
         binding.searchView.setOnQueryTextListener(object :
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

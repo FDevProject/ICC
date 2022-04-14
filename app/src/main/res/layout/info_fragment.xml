@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="56dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.info.InfoFragment">
+   >
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:scrollbars="none"
-        android:layout_marginBottom="32dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_height="match_parent"
             >
 
             <LinearLayout
@@ -334,6 +333,5 @@
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
-
+    </ScrollView>
 </FrameLayout>

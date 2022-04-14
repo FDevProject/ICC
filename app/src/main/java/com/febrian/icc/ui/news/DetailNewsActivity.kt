@@ -1,6 +1,8 @@
 package com.febrian.icc.ui.news
 
 import android.annotation.SuppressLint
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -17,13 +19,16 @@ import com.febrian.icc.R
 import com.febrian.icc.data.source.local.EntityNews
 import com.febrian.icc.data.source.remote.response.news.NewsDataResponse
 import com.febrian.icc.databinding.ActivityDetailNewsBinding
+import com.febrian.icc.utils.ConnectionReceiver
 import com.febrian.icc.utils.Constant
 import com.febrian.icc.utils.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
-class DetailNewsActivity : AppCompatActivity() {
+class DetailNewsActivity : AppCompatActivity(), ConnectionReceiver.ReceiveListener {
 
     private lateinit var binding: ActivityDetailNewsBinding
+    private lateinit var viewModel: NewsViewModel
+    private lateinit var receiver : ConnectionReceiver
 
     private var news: NewsDataResponse? = null
 
@@ -33,18 +38,19 @@ class DetailNewsActivity : AppCompatActivity() {
         binding = ActivityDetailNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        receiver = ConnectionReceiver(this, this)
+        news = intent.getParcelableExtra(Constant.KEY_NEWS)
+
+        viewModel =
+            ViewModelFactory.getInstance(applicationContext).create(NewsViewModel::class.java)
+
+        newsExist(viewModel, news, news?.title.toString())
+
         binding.loading.visibility = View.VISIBLE
 
         binding.back.setOnClickListener {
             finish()
         }
-
-        news = intent.getParcelableExtra(Constant.KEY_NEWS)
-
-        val viewModel =
-            ViewModelFactory.getInstance(applicationContext).create(NewsViewModel::class.java)
-
-        newsExist(viewModel, news, news?.title.toString())
 
         val action = AnimationUtils.loadAnimation(applicationContext, R.anim.rotate_open_anim)
         val items = AnimationUtils.loadAnimation(applicationContext, R.anim.from_bottom_anim)
@@ -166,37 +172,18 @@ class DetailNewsActivity : AppCompatActivity() {
 
     }
 
-    /* private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-         override fun onReceive(context: Context, intent: Intent) {
-             if (!InternetConnection.isConnected(context)) {
+    override fun onStart() {
+        val intent = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        registerReceiver(receiver, intent)
+        super.onStart()
+    }
 
-                 val builder = AlertDialog.Builder(applicationContext)
-                 val l_view = LayoutInflater.from(applicationContext).inflate(R.layout.alert_dialog_no_internet,null)
-                 builder.setView(l_view)
+    override fun onStop() {
+        unregisterReceiver(receiver)
+        super.onStop()
+    }
 
-                 val dialog = builder.create()
-                 dialog.show()
-                 dialog.setCancelable(false)
-                 dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-                 val btnRetry = l_view.findViewById<AppCompatButton>(R.id.btn_retry)
-                 btnRetry.setOnClickListener{
-                     dialog.dismiss()
-                     onReceive(context,intent)
-                     main()
-                 }
-             }
-         }
-     }*/
-
-    /* override fun onStart() {
-         val intent = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
-         applicationContext.registerReceiver(broadcastReceiver, intent)
-         super.onStart()
-     }
-
-     override fun onStop() {
-         applicationContext.unregisterReceiver(broadcastReceiver)
-         super.onStop()
-     }*/
+    override fun onNetworkChange() {
+        main()
+    }
 }

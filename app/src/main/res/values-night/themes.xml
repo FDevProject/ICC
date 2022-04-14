@@ -14,10 +14,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="SpinnerTheme" parent="android:Widget.Spinner">
-        <item name="android:background">@drawable/ic_baseline_keyboard_arrow_down_24</item>
-    </style>
-
     <style name="BottomSheetDialogTheme" parent="Theme.Design.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
@@ -32,11 +28,9 @@
 
     <color name="colorPrimary">@color/white_primary</color>
     <color name="colorSecondary">@color/white_secondary</color>
-    <color name="colorThird">@color/white_third</color>
 
     <color name="bgColorPrimary">@color/black_primary</color>
     <color name="bgColorSecondary">@color/black_secondary</color>
-    <color name="bgColorThird">@color/black_third</color>
 
     <color name="bgBottomColor">@color/black</color>
 </resources>

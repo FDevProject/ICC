@@ -2,6 +2,7 @@ package com.febrian.icc.ui.news
 
 import android.app.Activity
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,8 @@ class NewsAdapter(
 ) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
+    val listPosition: ArrayList<Int> = ArrayList()
+
     inner class ViewHolder(private val binding: ItemNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -32,6 +35,13 @@ class NewsAdapter(
                         .error(R.drawable.ic_baseline_broken_image_24)
                 )
                 .into(binding.imageNews)
+
+            for (i in 0 until listPosition.size) {
+                if (adapterPosition == listPosition[i]) {
+                    Glide.with(itemView.context).load(R.drawable.ic_baseline_bookmark_24)
+                        .into(binding.bookmark)
+                }
+            }
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, DetailNewsActivity::class.java)
@@ -47,6 +57,10 @@ class NewsAdapter(
                 listener.onShare(news.url.toString())
             }
         }
+    }
+
+    fun setBookmark(position: Int) {
+        listPosition.add(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsAdapter.ViewHolder {

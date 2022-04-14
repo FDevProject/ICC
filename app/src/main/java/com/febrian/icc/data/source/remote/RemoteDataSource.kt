@@ -53,10 +53,13 @@ class RemoteDataSource {
                 isLoading.value = false
                 if (response.isSuccessful)
                     result.value = ApiResponse.Success(response.body() as CovidResponse)
+                else
+                    Log.d("DATA", response.body().toString())
             }
 
             override fun onFailure(call: Call<CovidResponse>, t: Throwable) {
                 isLoading.value = false
+                Log.d("ERROR", t.message.toString())
                 result.value = ApiResponse.Error(t.message.toString())
             }
 
@@ -138,6 +141,7 @@ class RemoteDataSource {
                         )
                     )
                 } catch (e: java.lang.Exception) {
+                    Log.d("ERROR", e.message.toString())
                     resultData.value = ApiResponse.Error(e.message.toString())
                 }
             }
@@ -148,6 +152,7 @@ class RemoteDataSource {
                 responseBody: ByteArray?,
                 error: Throwable?
             ) {
+                Log.d("ERROR", error?.message.toString())
                 resultData.value = ApiResponse.Error(error?.message.toString())
             }
         })

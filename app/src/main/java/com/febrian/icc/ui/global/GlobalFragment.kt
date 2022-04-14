@@ -1,10 +1,11 @@
 package com.febrian.icc.ui.global
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.Typeface
-import android.location.Address
 import android.location.Geocoder
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.febrian.icc.R
 import com.febrian.icc.data.source.remote.network.ApiResponse
 import com.febrian.icc.data.source.remote.response.CovidResponse
 import com.febrian.icc.databinding.GlobalFragmentBinding
+import com.febrian.icc.utils.ConnectionReceiver
 import com.febrian.icc.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
@@ -33,13 +35,14 @@ import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class GlobalFragment : Fragment(), OnMapReadyCallback {
+class GlobalFragment : Fragment(), OnMapReadyCallback, ConnectionReceiver.ReceiveListener {
 
     private var _binding: GlobalFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var viewModel: GlobalViewModel
 
     private lateinit var mMap: GoogleMap
+    private lateinit var viewModel: GlobalViewModel
+    private lateinit var receiver: ConnectionReceiver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,23 +54,33 @@ class GlobalFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (activity != null) {
+            viewModel =
+                ViewModelFactory.getInstance(requireContext()).create(GlobalViewModel::class.java)
+            receiver = ConnectionReceiver(requireContext(), this)
 
-        viewModel =
-            ViewModelFactory.getInstance(requireContext()).create(GlobalViewModel::class.java)
-        loading(viewModel)
-        observerData(viewModel)
+            main()
+            binding.refreshLayout.setOnRefreshListener {
+                main()
+            }
 
-        binding.btnMaps.setOnClickListener {
-            val intent = Intent(requireContext(), MapsActivity::class.java)
-            startActivity(intent)
+            binding.btnMaps.setOnClickListener {
+                val intent = Intent(requireContext(), MapsActivity::class.java)
+                startActivity(intent)
+            }
+
         }
+    }
 
+    private fun main() {
+        loading()
+        observerData()
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.mapGlobal) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
-    private fun observerData(viewModel: GlobalViewModel) {
+    private fun observerData() {
         viewModel.getGlobal().observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponse.Success -> {
@@ -80,10 +93,12 @@ class GlobalFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun loading(viewModel: GlobalViewModel) {
+    private fun loading() {
         viewModel.isLoading.observe(viewLifecycleOwner) {
             if (it) binding.loading.visibility = View.VISIBLE
             else binding.loading.visibility = View.GONE
+
+            binding.refreshLayout.isRefreshing = it
         }
 
     }
@@ -147,9 +162,7 @@ class GlobalFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(p0: GoogleMap) {
-
         mMap = p0
-
         val location = getCountry()
         val latLng: LatLng = getLatLng(location)
 
@@ -162,7 +175,6 @@ class GlobalFragment : Fragment(), OnMapReadyCallback {
                 ), 3f
             )
         )
-
     }
 
     private fun getCountry(): String {
@@ -177,26 +189,38 @@ class GlobalFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun getLatLng(country: String): LatLng {
-        var latLng: LatLng? = null
-
-        val addressList: List<Address>?
+        var latLng = LatLng(0.0, 0.0)
         val geocoder = Geocoder(requireContext())
-        val address: Address?
         try {
-            addressList = geocoder.getFromLocationName(country, 1)
-            address = addressList!![0]
+            val addressList = geocoder.getFromLocationName(country, 1)
+            val address = addressList!![0]
             latLng = LatLng(address!!.latitude, address.longitude)
         } catch (e: IOException) {
             showMessage(e.message.toString())
             e.printStackTrace()
         }
 
-        return latLng!!
+        return latLng
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onStart() {
+        val intent = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        requireContext().registerReceiver(receiver, intent)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        requireContext().unregisterReceiver(receiver)
+        super.onStop()
+    }
+
+    override fun onNetworkChange() {
+        main()
     }
 
 }

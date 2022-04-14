@@ -5,4 +5,5 @@ object Constant {
     const val KEY_INFO = "KEY_INFO"
     const val KEY_TITLE_INFO = "KEY_TITLE_INFO"
     const val PREFERENCE = "PREFERENCE"
+    const val KEY_LOG = "KEY_LOG"
 }

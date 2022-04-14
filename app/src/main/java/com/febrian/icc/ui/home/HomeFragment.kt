@@ -1,6 +1,8 @@
 package com.febrian.icc.ui.home
 
+import android.content.IntentFilter
 import android.graphics.Typeface
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import com.febrian.icc.data.source.remote.network.ApiResponse
 import com.febrian.icc.data.source.remote.response.CovidResponse
 import com.febrian.icc.data.source.remote.response.StatisticResponse
 import com.febrian.icc.databinding.FragmentHomeBinding
+import com.febrian.icc.utils.ConnectionReceiver
 import com.febrian.icc.utils.DateUtils.getDateStatistic
 import com.febrian.icc.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
@@ -23,10 +26,13 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), ConnectionReceiver.ReceiveListener {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var receiver: ConnectionReceiver
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,48 +47,50 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
-            val homeViewModel = ViewModelFactory.getInstance(requireContext()).create(HomeViewModel::class.java)
+            homeViewModel =
+                ViewModelFactory.getInstance(requireContext()).create(HomeViewModel::class.java)
+            receiver = ConnectionReceiver(requireContext(), this)
 
-            main(homeViewModel)
+            main()
 
-            binding.swiperefresh.setOnRefreshListener {
+            binding.swipeRefresh.setOnRefreshListener {
                 binding.searchView.setQuery("", false)
-                main(homeViewModel)
+                main()
             }
         }
     }
 
-    private fun main(homeViewModel: HomeViewModel){
+    private fun main() {
         loading(homeViewModel)
-        searchCountry(homeViewModel)
-        observerData(homeViewModel, "Indonesia")
-        observerStatistic(homeViewModel, "Indonesia")
+        searchCountry()
+        observerData("Indonesia")
+        observerStatistic("Indonesia")
     }
 
-    private fun searchCountry(homeViewModel: HomeViewModel) {
+    private fun searchCountry() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                observerData(homeViewModel, query.toString())
-                observerStatistic(homeViewModel, query.toString())
+                observerData(query.toString())
+                observerStatistic(query.toString())
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                observerData(homeViewModel, newText.toString())
-                observerStatistic(homeViewModel, newText.toString())
+                observerData(newText.toString())
+                observerStatistic(newText.toString())
                 return true
             }
         })
     }
 
-    private fun observerData(homeViewModel: HomeViewModel, country: String) {
+    private fun observerData(country: String) {
         homeViewModel.getCountry(country).observe(viewLifecycleOwner) {
             when (it) {
                 is ApiResponse.Success -> {
                     showUIData(it.data)
                     showDataPieChart(it.data, country)
                 }
-                is ApiResponse.Error -> showMessage(it.errorMessage)
+                // is ApiResponse.Error -> showMessage(it.errorMessage)
                 else -> {}
             }
         }
@@ -161,18 +169,18 @@ class HomeFragment : Fragment() {
             if (it) binding.loading.visibility = View.VISIBLE
             else binding.loading.visibility = View.GONE
 
-            binding.swiperefresh.isRefreshing = it
+            binding.swipeRefresh.isRefreshing = it
         }
     }
 
-    private fun observerStatistic(homeViewModel: HomeViewModel, query: String) {
+    private fun observerStatistic(query: String) {
         homeViewModel.getStatistic(query).observe(viewLifecycleOwner) { data ->
             when (data) {
                 is ApiResponse.Success -> {
                     showStatistic(data.data)
                 }
                 is ApiResponse.Error -> {
-                    showMessage(data.errorMessage)
+                    //  showMessage(data.errorMessage)
                 }
                 else -> {}
             }
@@ -372,5 +380,20 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onStart() {
+        val intent = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        requireContext().registerReceiver(receiver, intent)
+        super.onStart()
+    }
+
+    override fun onStop() {
+        requireContext().unregisterReceiver(receiver)
+        super.onStop()
+    }
+
+    override fun onNetworkChange() {
+        main()
     }
 }

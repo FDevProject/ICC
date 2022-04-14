@@ -10,7 +10,6 @@
     app:cardCornerRadius="20dp">
 
     <ImageView
-        android:id="@+id/image_news"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="12dp"
@@ -32,7 +31,6 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/title_news"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -42,7 +40,6 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tgl_news"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

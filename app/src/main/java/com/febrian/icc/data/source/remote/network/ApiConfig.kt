@@ -7,7 +7,7 @@ object ApiConfig {
     val apiCovid : ApiService by lazy {
         val service = Retrofit
             .Builder()
-            .baseUrl("https://disease.sh/")
+            .baseUrl("https://disease.sh")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
