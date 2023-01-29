@@ -10,11 +10,12 @@
     <ScrollView
         android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             >
 
             <LinearLayout
@@ -48,7 +49,8 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="-28dp"
                     android:rotation="-30"
-                    android:src="@drawable/bg_header" />
+                    android:src="@drawable/bg_header"
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
 
@@ -81,12 +83,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:padding="36dp"
                                 android:layout_height="160dp"
-                                android:src="@drawable/general"/>
+                                android:src="@drawable/general"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -111,12 +115,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:padding="36dp"
-                                android:src="@drawable/dry_cough"/>
+                                android:src="@drawable/dry_cough"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -148,12 +154,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:padding="36dp"
-                                android:src="@drawable/prevention"/>
+                                android:src="@drawable/prevention"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -178,16 +186,18 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:padding="36dp"
-                                android:src="@drawable/vaccins"/>
+                                android:src="@drawable/vaccins"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Vaccines"
+                                android:text="@string/vaccines"
                                 android:paddingBottom="12dp"
                                 android:textSize="16sp"
                                 android:fontFamily="@font/montserrat_medium"
@@ -215,12 +225,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:padding="24dp"
-                                android:src="@drawable/covid_test"/>
+                                android:src="@drawable/covid_test"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -245,12 +257,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:padding="24dp"
-                                android:src="@drawable/exercise"/>
+                                android:src="@drawable/exercise"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -282,12 +296,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:padding="24dp"
-                                android:src="@drawable/food"/>
+                                android:src="@drawable/food"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -312,12 +328,14 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            tools:ignore="UseCompoundDrawables">
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:padding="24dp"
-                                android:src="@drawable/peoplerisk"/>
+                                android:src="@drawable/peoplerisk"
+                                tools:ignore="ContentDescription" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

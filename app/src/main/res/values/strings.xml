@@ -77,6 +77,9 @@
 
     <string name="last_update">Last Update</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="vaccines">Vaccines</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

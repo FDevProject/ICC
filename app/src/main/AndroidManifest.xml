@@ -21,9 +21,37 @@
         android:theme="@style/Theme.ICC"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.screen.SplashScreenActivity"
+            android:name=".ui.screen.compose.SplashScreenActivity"
+            android:exported="true"
+            android:label="@string/title_activity_splash_screen"
+            android:theme="@style/Theme.ICC">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true"
+            android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
-            android:exported="true" >
+            android:theme="@style/Theme.ICC">
+          
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.screen.SplashScreenActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -69,12 +97,6 @@
             android:exported="false"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-
-        </activity>
     </application>
 
 </manifest>

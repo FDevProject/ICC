@@ -17,7 +17,7 @@ import com.febrian.icc.MapsActivity
 import com.febrian.icc.R
 import com.febrian.icc.data.source.remote.network.ApiResponse
 import com.febrian.icc.data.source.remote.response.CovidResponse
-import com.febrian.icc.databinding.GlobalFragmentBinding
+import com.febrian.icc.databinding.FragmentGlobalBinding
 import com.febrian.icc.utils.ConnectionReceiver
 import com.febrian.icc.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
@@ -37,7 +37,7 @@ import java.util.*
 
 class GlobalFragment : Fragment(), OnMapReadyCallback, ConnectionReceiver.ReceiveListener {
 
-    private var _binding: GlobalFragmentBinding? = null
+    private var _binding: FragmentGlobalBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var mMap: GoogleMap
@@ -48,7 +48,7 @@ class GlobalFragment : Fragment(), OnMapReadyCallback, ConnectionReceiver.Receiv
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = GlobalFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentGlobalBinding.inflate(inflater, container, false)
         return binding.root
     }
 
