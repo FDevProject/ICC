@@ -21,6 +21,15 @@
         android:theme="@style/Theme.ICC"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.screen.compose.onboarding.OnBoardingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_on_boarding"
+            android:theme="@style/Theme.ICC">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.screen.compose.SplashScreenActivity"
             android:exported="true"
             android:label="@string/title_activity_splash_screen"
@@ -34,7 +43,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.MainActivity"
@@ -42,8 +50,6 @@
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.ICC">
-          
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

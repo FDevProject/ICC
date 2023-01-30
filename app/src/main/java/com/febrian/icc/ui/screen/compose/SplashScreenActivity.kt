@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
 import com.febrian.icc.MainActivity
 import com.febrian.icc.R
-import com.febrian.icc.ui.screen.OnboardingActivity
+import com.febrian.icc.ui.screen.compose.onboarding.OnBoardingActivity
 import com.febrian.icc.ui.ui.theme.ICCTheme
 import com.febrian.icc.utils.Constant
 import kotlinx.coroutines.delay
@@ -72,7 +72,7 @@ class SplashScreenActivity : ComponentActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            val intent = Intent(applicationContext, OnboardingActivity::class.java)
+                            val intent = Intent(applicationContext, OnBoardingActivity::class.java)
                             startActivity(intent)
                             finish()
                         }
