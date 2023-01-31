@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.lifecycleScope
-import com.febrian.icc.MainActivity
 import com.febrian.icc.R
+import com.febrian.icc.ui.MainActivity
 import com.febrian.icc.ui.screen.compose.onboarding.OnBoardingActivity
 import com.febrian.icc.ui.ui.theme.ICCTheme
 import com.febrian.icc.utils.Constant
@@ -67,15 +67,15 @@ class SplashScreenActivity : ComponentActivity() {
                     val value = sharedPreference.getString(Constant.KEY_LOG, "")
                     lifecycleScope.launchWhenCreated {
                         delay(1000)
-                        if (value == Constant.KEY_LOG) {
+                    //    if (value == Constant.KEY_LOG) {
                             val intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
                             finish()
-                        } else {
-                            val intent = Intent(applicationContext, OnBoardingActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
+                   //     } else {
+                    //        val intent = Intent(applicationContext, OnBoardingActivity::class.java)
+                    //        startActivity(intent)
+                     //       finish()
+                    //    }
                     }
                 }
 

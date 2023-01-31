@@ -21,6 +21,24 @@
         android:theme="@style/Theme.ICC"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.info.compose.DropdownInfoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_dropdown_info"
+            android:theme="@style/Theme.ICC">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ui.info.compose.ListInfoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_list_info"
+            android:theme="@style/Theme.ICC">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.screen.compose.onboarding.OnBoardingActivity"
             android:exported="false"
             android:label="@string/title_activity_on_boarding"

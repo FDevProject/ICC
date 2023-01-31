@@ -80,6 +80,9 @@
     <string name="vaccines">Vaccines</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_on_boarding">OnBoardingActivity</string>
+    <string name="title_activity_list_info">ListInfoActivity</string>
+    <string name="title_activity_dropdown_info">DropdownInfoActivity</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

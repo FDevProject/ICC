@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import com.febrian.icc.ui.global.GlobalViewModel
 import com.febrian.icc.ui.global.compose.GlobalScreen
 import com.febrian.icc.ui.home.HomeViewModel
+import com.febrian.icc.ui.info.compose.InfoScreen
 import com.febrian.icc.ui.news.NewsViewModel
 import com.febrian.icc.ui.news.compose.NewsScreen
 import com.febrian.icc.utils.ViewModelFactory
@@ -43,7 +44,7 @@ fun NavigationSetup(
             )
         }
         composable(BottomNavigationMenuItem.Info.route) {
-
+            InfoScreen()
         }
         composable(BottomNavigationMenuItem.Setting.route) {
 
