@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.febrian.icc.ui.MainActivity
 import com.febrian.icc.ui.screen.compose.SetupNavGraph
-import com.febrian.icc.ui.screen.compose.onboarding.ui.theme.ICCTheme
+import com.febrian.icc.ui.ui.theme.ICCTheme
 
 class OnBoardingActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

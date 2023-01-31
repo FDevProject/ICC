@@ -13,6 +13,7 @@ import com.febrian.icc.ui.home.HomeViewModel
 import com.febrian.icc.ui.info.compose.InfoScreen
 import com.febrian.icc.ui.news.NewsViewModel
 import com.febrian.icc.ui.news.compose.NewsScreen
+import com.febrian.icc.ui.setting.compose.SettingScreen
 import com.febrian.icc.utils.ViewModelFactory
 import com.google.android.gms.maps.OnMapReadyCallback
 
@@ -47,7 +48,7 @@ fun NavigationSetup(
             InfoScreen()
         }
         composable(BottomNavigationMenuItem.Setting.route) {
-
+            SettingScreen()
         }
     }
 }
