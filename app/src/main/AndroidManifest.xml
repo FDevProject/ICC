@@ -24,6 +24,7 @@
         <activity
             android:name=".ui.info.compose.DropdownInfoActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_dropdown_info"
             android:theme="@style/Theme.ICC">
             <meta-data
@@ -33,6 +34,7 @@
         <activity
             android:name=".ui.info.compose.ListInfoActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_list_info"
             android:theme="@style/Theme.ICC">
             <meta-data
@@ -42,6 +44,7 @@
         <activity
             android:name=".ui.screen.compose.onboarding.OnBoardingActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_on_boarding"
             android:theme="@style/Theme.ICC">
             <meta-data
@@ -51,6 +54,7 @@
         <activity
             android:name=".ui.screen.compose.SplashScreenActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/Theme.ICC">
             <meta-data
@@ -73,55 +77,16 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".ui.screen.SplashScreenActivity"
-            android:exported="true"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.screen.OnboardingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.news.BookmarkActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.info.DropdownInfoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ui.info.ListInfoActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.news.DetailNewsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
 
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDWJudOrzY6gwElPzAxtxEsTTZKo3L-9Og" />
 
-        <activity
-            android:name=".MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
