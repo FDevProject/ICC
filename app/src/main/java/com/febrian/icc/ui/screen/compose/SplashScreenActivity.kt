@@ -37,7 +37,7 @@ class SplashScreenActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    val sharedPreference: SharedPreferences = getSharedPreferences(Constant.PREFERENCE, Context.MODE_PRIVATE)
+                    val sharedPreference: SharedPreferences = getSharedPreferences(Constant.KEY_LOG, Context.MODE_PRIVATE)
 
                     Column(
                         modifier = Modifier.fillMaxSize(),
@@ -67,15 +67,15 @@ class SplashScreenActivity : ComponentActivity() {
                     val value = sharedPreference.getString(Constant.KEY_LOG, "")
                     lifecycleScope.launchWhenCreated {
                         delay(1000)
-                    //    if (value == Constant.KEY_LOG) {
+                        if (value == Constant.KEY_LOG) {
                             val intent = Intent(applicationContext, MainActivity::class.java)
                             startActivity(intent)
                             finish()
-                   //     } else {
-                    //        val intent = Intent(applicationContext, OnBoardingActivity::class.java)
-                    //        startActivity(intent)
-                     //       finish()
-                    //    }
+                        } else {
+                            val intent = Intent(applicationContext, OnBoardingActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
                     }
                 }
 

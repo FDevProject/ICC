@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
@@ -22,6 +23,7 @@ import com.febrian.icc.data.source.remote.response.CovidResponse
 import com.febrian.icc.data.source.remote.response.StatisticResponse
 import com.febrian.icc.ui.home.HomeViewModel
 import com.febrian.icc.utils.DateUtils
+import com.febrian.icc.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
@@ -31,8 +33,8 @@ import java.util.*
 
 @Composable
 fun HomeScreen(
-    c: Context,
-    homeViewModel: HomeViewModel,
+    c: Context = LocalContext.current,
+    homeViewModel: HomeViewModel = ViewModelFactory.getInstance(c).create(HomeViewModel::class.java),
     viewLifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     AndroidView(factory = { context ->

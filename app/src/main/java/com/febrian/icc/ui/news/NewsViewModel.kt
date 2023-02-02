@@ -1,5 +1,7 @@
 package com.febrian.icc.ui.news
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +25,10 @@ class NewsViewModel(private val repository: Repository) : ViewModel() {
 
     fun newsExist(title : String) : LiveData<Boolean>{
         return repository.newsExist(title)
+    }
+
+    fun newsExistState(title : String, state: MutableState<Boolean?>) : MutableState<Boolean?>{
+        return repository.newsExistState(title, state)
     }
 
     fun insert(news : EntityNews){

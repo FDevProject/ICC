@@ -22,15 +22,16 @@
     </style>
 
     <!--    My Custom Color-->
+    <!--    My Custom Color-->
     <style name="TextPrimary" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/white_primary</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
-    <color name="colorPrimary">@color/white_primary</color>
-    <color name="colorSecondary">@color/white_secondary</color>
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorSecondary">@color/black</color>
 
-    <color name="bgColorPrimary">@color/black_primary</color>
-    <color name="bgColorSecondary">@color/black_secondary</color>
+    <color name="bgColorPrimary">@color/white</color>
+    <color name="bgColorSecondary">@color/white</color>
 
-    <color name="bgBottomColor">@color/black</color>
+    <color name="bgBottomColor">@color/white</color>
 </resources>

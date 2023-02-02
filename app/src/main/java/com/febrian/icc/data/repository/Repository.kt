@@ -1,5 +1,6 @@
 package com.febrian.icc.data.repository
 
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.febrian.icc.data.source.DataSource
@@ -86,6 +87,11 @@ class Repository(
         val result = MutableLiveData<Boolean>()
         result.value = localDataSource.newsExist(title)
         return result
+    }
+
+    override fun newsExistState(title: String, state: MutableState<Boolean?>): MutableState<Boolean?> {
+        state.value = localDataSource.newsExist(title)
+        return state
     }
 
     override fun getListInfo(

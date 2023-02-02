@@ -1,5 +1,6 @@
 package com.febrian.icc.data.source
 
+import androidx.compose.runtime.MutableState
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.Query
@@ -44,6 +45,8 @@ interface DataSource {
     fun getAllNews():LiveData<List<EntityNews>>
 
     fun newsExist(title: String) : LiveData<Boolean>
+
+    fun newsExistState(title: String, state: MutableState<Boolean?>): MutableState<Boolean?>
 
     fun getListInfo(title : String, loading : MutableLiveData<Boolean>) : LiveData<ApiResponse<ListInfoResponse>>
 

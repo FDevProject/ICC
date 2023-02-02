@@ -1,37 +1,44 @@
 package com.febrian.icc.ui.global.compose
 
 import android.content.Context
+import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.febrian.icc.MapsActivity
 import com.febrian.icc.R
 import com.febrian.icc.data.source.remote.network.ApiResponse
 import com.febrian.icc.data.source.remote.response.CovidResponse
 import com.febrian.icc.ui.global.GlobalViewModel
+import com.febrian.icc.utils.ViewModelFactory
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.google.android.gms.maps.OnMapReadyCallback
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
 fun GlobalScreen(
-    callback: OnMapReadyCallback, viewModel: GlobalViewModel,
-    c: Context,
+    c: Context = LocalContext.current,
+    viewModel: GlobalViewModel = ViewModelFactory.getInstance(c).create(
+        GlobalViewModel::class.java
+    ),
     viewLifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
 ) {
     AndroidView(factory = { context ->
@@ -43,6 +50,9 @@ fun GlobalScreen(
 
         loading(viewModel, view, viewLifecycleOwner)
         observerData(viewModel, view, c, viewLifecycleOwner)
+
+        getCountry(c.resources, view)
+
     })
 }
 
@@ -86,6 +96,15 @@ private fun showUIData(data: CovidResponse, view: View) {
 
 private fun showMessage(message: String, context: Context) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+private fun getCountry(resources: Resources, view: View) {
+    var location = resources.configuration?.locale?.displayCountry
+
+    if (location == "" || location == null) location = "Indonesia"
+
+    view.findViewById<TextView>(R.id.country).text = location
+
 }
 
 private fun showDataPieChart(data: CovidResponse, view: View, context: Context) {

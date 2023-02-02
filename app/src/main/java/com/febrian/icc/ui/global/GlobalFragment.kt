@@ -64,10 +64,10 @@ class GlobalFragment : Fragment(), OnMapReadyCallback, ConnectionReceiver.Receiv
                 main()
             }
 
-            binding.btnMaps.setOnClickListener {
+           /* binding.btnMaps.setOnClickListener {
                 val intent = Intent(requireContext(), MapsActivity::class.java)
                 startActivity(intent)
-            }
+            }*/
 
         }
     }

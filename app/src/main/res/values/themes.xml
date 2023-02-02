@@ -28,14 +28,14 @@
 
     <!--    My Custom Color-->
     <style name="TextPrimary" parent="Widget.AppCompat.TextView">
-        <item name="android:textColor">@color/black_primary</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
-    <color name="colorPrimary">@color/black_primary</color>
-    <color name="colorSecondary">@color/black_secondary</color>
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorSecondary">@color/black</color>
 
-    <color name="bgColorPrimary">@color/white_primary</color>
-    <color name="bgColorSecondary">@color/white_secondary</color>
+    <color name="bgColorPrimary">@color/white</color>
+    <color name="bgColorSecondary">@color/white</color>
 
     <color name="bgBottomColor">@color/white</color>
 </resources>

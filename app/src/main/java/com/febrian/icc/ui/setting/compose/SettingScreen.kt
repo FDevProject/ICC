@@ -17,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,7 +33,6 @@ fun SettingScreen() {
         Spacer(modifier = Modifier.height(48.dp))
         About()
     }
-
 }
 
 @Composable
@@ -68,9 +69,9 @@ fun Header() {
 }
 
 @Composable
-fun About(){
+fun About() {
 
-    val stateAbout = remember{ mutableStateOf(false) }
+    val stateAbout = remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
@@ -79,7 +80,7 @@ fun About(){
     ) {
         Icon(
             painter = painterResource(id = R.drawable.ic_baseline_info_24),
-            contentDescription = "Info"
+            contentDescription = "Info", tint = Color.Black
         )
         Text(
             text = "About",
