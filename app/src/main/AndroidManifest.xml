@@ -55,7 +55,6 @@
             android:name=".ui.screen.compose.SplashScreenActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_splash_screen"
             android:theme="@style/Theme.ICC">
             <meta-data
                 android:name="android.app.lib_name"

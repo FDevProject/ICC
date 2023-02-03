@@ -39,6 +39,7 @@ import com.febrian.icc.ui.info.compose.showMessage
 import com.febrian.icc.ui.news.BookmarkActivity
 import com.febrian.icc.ui.news.DetailNewsActivity
 import com.febrian.icc.ui.news.NewsViewModel
+import com.febrian.icc.utils.Constant
 import com.febrian.icc.utils.ViewModelFactory
 
 @Preview(showBackground = true, showSystemUi = true)
@@ -167,6 +168,7 @@ fun ItemNews(news: NewsDataResponse, context: Context, newsViewModel: NewsViewMo
             .clickable {
                 val intent = Intent(context.applicationContext, DetailNewsActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra(Constant.KEY_NEWS, news)
                 context.startActivity(intent)
             },
         shape = RoundedCornerShape(16.dp),
